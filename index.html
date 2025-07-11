@@ -1,0 +1,3311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Abdillah Syah Al Malik MK | AI Data Analyst</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Splash Screen Styles */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a20 0%, #050514 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            overflow: hidden;
+        }
+        
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .splash-logo {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2rem;
+        }
+        
+        .splash-logo-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-right-color: var(--primary);
+            animation: spin 1.5s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+        
+        .splash-logo-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: rgba(0, 240, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: var(--primary);
+            box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+        
+        .splash-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--light);
+            text-align: center;
+            margin-top: 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .splash-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: expandLine 1.5s forwards;
+        }
+        
+        .splash-progress-container {
+            width: 250px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+        
+        .splash-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            animation: progressLoad 2.5s forwards cubic-bezier(0.22, 1, 0.36, 1);
+            transition: width 0.3s ease;
+        }
+        
+        .splash-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .splash-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0;
+            animation: particleFade 4s infinite;
+        }
+        
+        .time-greeting {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: textGlow 3s infinite alternate;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 1s ease-out 1s forwards, textGlow 3s infinite alternate 1.5s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes expandLine {
+            0% { width: 0; left: 50%; }
+            100% { width: 100%; left: 0; }
+        }
+        
+        @keyframes progressLoad {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes particleFade {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px) scale(1.2); }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.show {
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(10, 10, 32, 0.95) 0%, rgba(5, 5, 20, 0.98) 100%);
+            margin: 5% auto;
+            padding: 2rem;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary);
+        }
+        
+        .modal-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-section h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .modal-section p {
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .modal-section ul {
+            padding-left: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .modal-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .modal-tool {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        /* PDF Viewer Styles */
+        .pdf-viewer-container {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Rest of your existing CSS remains the same */
+        :root {
+            --primary: #00f0ff; /* Neon cyan */
+            --primary-dark: #0066ff;
+            --secondary: #ff00f0; /* Neon pink */
+            --tertiary: #00ff66; /* Neon green */
+            --dark: #0a0a20; /* Deep space blue */
+            --light: #e0e0ff; /* Light blue */
+            --gray: #8892b0;
+            --dark-gray: #495670;
+            --success: #00ff88;
+            --danger: #ff0066;
+            
+            /* AI theme colors */
+            --ai-primary: rgba(0, 240, 255, 0.8);
+            --ai-secondary: rgba(255, 0, 240, 0.6);
+            --ai-accent: rgba(0, 255, 102, 0.6);
+            
+            /* Fluid typography */
+            --min-font: 14px;
+            --max-font: 16px;
+            --fluid-ratio: 1.5vw;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: clamp(var(--min-font), var(--fluid-ratio), var(--max-font));
+            overflow-x: hidden;
+            min-width: 320px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 240, 0.05) 0%, transparent 30%),
+                linear-gradient(to bottom, rgba(10, 10, 32, 0.9), rgba(5, 5, 20, 0.95));
+        }
+
+        /* AI Grid Background */
+        .ai-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            animation: gridMove 100s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
+        }
+
+        /* AI Particle Network */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* AI Glow Effects */
+        .glow {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+
+        .glow-secondary {
+            text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary);
+        }
+
+        .glow-accent {
+            text-shadow: 0 0 10px var(--tertiary), 0 0 20px var(--tertiary);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 3vw, 2rem);
+        }
+
+        /* Futuristic AI header */
+        header {
+            background: rgba(10, 10, 32, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 240, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        header.scrolled {
+            background: rgba(5, 5, 20, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            min-height: 70px;
+        }
+
+        .logo {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            animation: pulse 2s infinite alternate;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: clamp(1rem, 2vw, 1.875rem);
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--light);
+            transition: transform 0.3s;
+            z-index: 1001;
+        }
+
+        .hamburger:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        /* AI Hero Section */
+        .hero {
+            padding: 12rem 0 6rem;
+            background: linear-gradient(135deg, rgba(10, 10, 32, 0.8) 0%, rgba(5, 5, 20, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+            filter: blur(20px);
+            opacity: 0.15;
+        }
+
+        .hero::before {
+            top: -50px;
+            right: -50px;
+            width: min(300px, 50vw);
+            height: min(300px, 50vw);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        .hero::after {
+            bottom: -100px;
+            left: -100px;
+            width: min(400px, 70vw);
+            height: min(400px, 70vw);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation-delay: 2s;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+            gap: 2rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 0;
+            text-align: center;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-image img {
+            width: min(350px, 80vw);
+            height: min(350px, 80vw);
+            border-radius: 50%;
+            object-fit: cover;
+            border: min(5px, 1vw) solid rgba(0, 240, 255, 0.3);
+            box-shadow: 
+                0 0 30px rgba(0, 240, 255, 0.5),
+                0 0 60px rgba(0, 240, 255, 0.3);
+            animation: float 4s ease-in-out infinite;
+            transition: all 0.5s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            border: 2px dashed rgba(0, 240, 255, 0.4);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+            z-index: 1;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            width: calc(100% + 80px);
+            height: calc(100% + 80px);
+            border: 2px dotted rgba(255, 0, 240, 0.3);
+            border-radius: 50%;
+            animation: rotate 30s linear infinite reverse;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--light);
+            line-height: 1.2;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-text h2 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px var(--primary); }
+            50% { text-shadow: 0 0 20px var(--primary); }
+            100% { text-shadow: 0 0 5px var(--primary), 0 0 10px var(--secondary); }
+        }
+
+        .hero-text p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .social-links {
+            display: flex;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(2.5rem, 5vw, 3rem);
+            height: clamp(2.5rem, 5vw, 3rem);
+            border-radius: 50%;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--light);
+            transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
+            transition: all 0.6s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4);
+            color: var(--dark);
+        }
+
+        .social-links a:hover::before {
+            left: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: clamp(0.75rem, 2vw, 1rem) clamp(1.25rem, 3vw, 1.5rem);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--dark);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+            border: none;
+            cursor: pointer;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            margin: 0.5rem 0;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+            z-index: 1;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.5);
+            color: var(--dark);
+        }
+
+        .btn:hover::after {
+            transform: translateY(0);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            margin-left: 0.75rem;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* AI Section styles */
+        .section {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+            background-color: rgba(10, 10, 32, 0.7);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 0%, rgba(0, 240, 255, 0.05) 50%, transparent 100%),
+                linear-gradient(180deg, transparent 0%, rgba(255, 0, 240, 0.05) 50%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: clamp(2rem, 4vw, 3rem);
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--light);
+            display: inline-block;
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: clamp(3rem, 6vw, 5rem);
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            bottom: -0.625rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-text {
+            flex: 1;
+            padding-right: 0;
+            width: 100%;
+        }
+
+        .about-text h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .about-text p {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .top-skills {
+            flex: 1;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .top-skills h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            font-weight: 500;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-tag i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 240, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.2);
+        }
+
+        /* Experience Section */
+        .experience {
+            background: linear-gradient(135deg, rgba(10, 10, 32, 0.9) 0%, rgba(5, 5, 20, 0.95) 100%);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .timeline-connector {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            background: linear-gradient(to bottom, 
+                rgba(0, 240, 255, 0.2), 
+                var(--primary), 
+                var(--secondary), 
+                rgba(255, 0, 240, 0.2));
+            border-radius: 3px;
+            z-index: 1;
+            animation: timelinePulse 4s infinite;
+        }
+        
+        .timeline-dots {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--dark);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            position: relative;
+            left: -6px;
+            z-index: 2;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        .timeline-dot:hover {
+            transform: scale(1.2);
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .timeline-content {
+            padding: 25px;
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 10px 35px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 240, 255, 0.3);
+            border-color: rgba(0, 240, 255, 0.4);
+        }
+        
+        .experience-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+        
+        .company-logo {
+            width: 100px; /* Increased from 60px */
+            height: 100px; /* Increased from 60px */
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .company-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .logo-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px dashed rgba(0, 240, 255, 0.4);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+            z-index: 1;
+        }
+        
+        .logo-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(0, 240, 255, 0.1);
+            animation: pulse 3s infinite;
+            z-index: 0;
+        }
+        
+        .experience-title-container {
+            flex: 1;
+        }
+        
+        .experience-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 0.25rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .experience-date {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.875rem;
+            display: block;
+        }
+        
+        /* Hide experience details and tech used */
+        .experience-details {
+            display: none;
+        }
+        
+        .timeline-arrow {
+            position: absolute;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            padding-right: 70px;
+        }
+        
+        .right {
+            left: 50%;
+            padding-left: 70px;
+        }
+        
+        .left .timeline-arrow {
+            right: -10px;
+            border-left: 15px solid rgba(0, 240, 255, 0.1);
+        }
+        
+        .right .timeline-arrow {
+            left: -10px;
+            border-right: 15px solid rgba(0, 240, 255, 0.1);
+        }
+        
+        .timeline-content:hover .timeline-arrow {
+            border-left-color: rgba(0, 240, 255, 0.3);
+            border-right-color: rgba(0, 240, 255, 0.3);
+        }
+
+        @keyframes timelinePulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        /* Education Section */
+        .education-item {
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 10px;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .education-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(0, 240, 255, 0.2);
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .education-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            gap: 0.5rem;
+        }
+
+        .education-title {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            font-weight: 600;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .education-date {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        .education-degree {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .education-description {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        .education-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* Projects Section - Updated */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .project-card {
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            min-width: 0;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(0, 240, 255, 0.2);
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+
+        .project-image {
+            height: clamp(180px, 30vw, 220px);
+            background: linear-gradient(135deg, rgba(10, 10, 32, 0.8) 0%, rgba(5, 5, 20, 0.8) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: clamp(1rem, 2vw, 1.25rem);
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: clamp(1.125rem, 3vw, 1.25rem);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .project-view-btn {
+            margin-top: auto;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--primary);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            text-align: center;
+            align-self: flex-start;
+        }
+
+        .project-view-btn:hover {
+            background: rgba(0, 240, 255, 0.3);
+            color: var(--light);
+            transform: translateY(-2px);
+        }
+
+        /* Certificates Section */
+        .certificates {
+            background: linear-gradient(135deg, rgba(10, 10, 32, 0.9) 0%, rgba(5, 5, 20, 0.9) 100%);
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .certificate-card {
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            min-width: 0;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(0, 240, 255, 0.2);
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+
+        .certificate-image {
+            height: clamp(150px, 25vw, 180px);
+            background: linear-gradient(135deg, rgba(10, 10, 32, 0.8) 0%, rgba(5, 5, 20, 0.8) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+
+        .certificate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .certificate-content {
+            padding: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .certificate-title {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .certificate-issuer {
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .certificate-date {
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .certificate-link {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
+            transition: all 0.3s;
+        }
+
+        .certificate-link:hover {
+            color: var(--secondary);
+        }
+
+        .certificate-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .certificate-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+        }
+
+        .contact-info {
+            max-width: min(600px, 90vw);
+            margin: 0 auto clamp(2rem, 4vw, 3rem);
+        }
+
+        .contact-info p {
+            color: var(--gray);
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
+            text-decoration: none;
+            transition: color 0.3s;
+            word-break: break-all;
+            position: relative;
+        }
+
+        .contact-email::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s;
+        }
+
+        .contact-email:hover {
+            color: var(--secondary);
+        }
+
+        .contact-email:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(145deg, rgba(10, 10, 32, 0.9) 0%, rgba(5, 5, 20, 0.95) 100%);
+            color: white;
+            padding: clamp(2rem, 4vw, 3rem) 0 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .footer-content {
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
+            gap: 0.5rem;
+        }
+
+        .footer-links li {
+            margin: 0 clamp(0.5rem, 2vw, 1rem);
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+        }
+
+        .social-links-footer {
+            display: flex;
+            justify-content: center;
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .social-links-footer a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(2.5rem, 5vw, 3rem);
+            height: clamp(2.5rem, 5vw, 3rem);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links-footer a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s;
+        }
+
+        .social-links-footer a:hover {
+            background: var(--primary);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4);
+            color: var(--dark);
+        }
+
+        .social-links-footer a:hover::before {
+            left: 100%;
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* AI Terminal Effect */
+        .terminal-effect {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 300px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 100;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: var(--primary);
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .terminal-content {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+        }
+
+        .terminal-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-prompt {
+            color: var(--tertiary);
+            margin-right: 5px;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 12px;
+            background: var(--primary);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 576px) {
+            .hero-content {
+                flex-direction: row;
+            }
+            
+            .hero-text {
+                text-align: left;
+                padding-right: 2rem;
+                margin-top: 0;
+            }
+            
+            .social-links {
+                justify-content: flex-start;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-text {
+                padding-right: 0;
+            }
+            
+            .education-header {
+                flex-direction: row;
+            }
+            
+            .btn-outline {
+                margin-left: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 14rem 0 8rem;
+            }
+            
+            .nav-links {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: none;
+            }
+            
+            .hero-content {
+                gap: 3rem;
+            }
+            
+            .hero-text p {
+                max-width: 80%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            /* Timeline responsiveness */
+            @media screen and (max-width: 768px) {
+                .timeline-connector {
+                    left: 31px;
+                }
+                
+                .timeline-item {
+                    width: 100%;
+                    padding-left: 70px;
+                    padding-right: 25px;
+                }
+                
+                .left, .right {
+                    left: 0;
+                }
+                
+                .left .timeline-arrow, 
+                .right .timeline-arrow {
+                    left: -10px;
+                    border-left: none;
+                    border-right: 15px solid rgba(0, 240, 255, 0.1);
+                }
+                
+                .timeline-dot {
+                    left: -7px;
+                }
+                
+                .experience-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+            
+                .company-logo {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero {
+                padding: 16rem 0 10rem;
+            }
+            
+            .hero-text p {
+                max-width: 600px;
+            }
+            
+            .hero-image img {
+                width: 350px;
+                height: 350px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background-color: white;
+                color: black;
+                font-size: 12pt;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            header, footer, .hero-image, .social-links, .btn, .print-btn, .ai-grid, #particles-js, .ai-assistant, .terminal-effect {
+                display: none;
+            }
+            
+            .section {
+                padding: 1rem 0;
+                page-break-inside: avoid;
+                background: white !important;
+            }
+            
+            .projects-grid, .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .project-card, .certificate-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 1rem;
+                page-break-inside: avoid;
+                background: white !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Splash Screen -->
+    <div class="splash-screen" id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <div class="splash-logo-inner"></div>
+                <div class="splash-logo-core">
+                    <i class="fas fa-atom"></i>
+                </div>
+            </div>
+            <h1 class="splash-text">Abdillah.syh</h1>
+            <div class="time-greeting" id="time-greeting"></div>
+            <div class="splash-progress-container">
+                <div class="splash-progress-bar"></div>
+            </div>
+        </div>
+        
+        <!-- Add floating particles to splash screen -->
+        <div class="splash-particles" id="splash-particles"></div>
+    </div>
+    
+    <!-- AI Grid Background -->
+    <div class="ai-grid"></div>
+    
+    <!-- AI Particle Network -->
+    <div id="particles-js"></div>
+    
+    <!-- AI Terminal Effect -->
+    <div class="terminal-effect" id="terminal">
+        <div class="terminal-header">
+            <span>AI TERMINAL</span>
+            <span>v2.5.7</span>
+        </div>
+        <div class="terminal-content" id="terminal-content">
+            <div>> Initializing portfolio system...</div>
+            <div>> Loading data modules...</div>
+            <div>> Establishing secure connection...</div>
+            <div>> Welcome to Abdillah's Portfolio</div>
+        </div>
+        <div class="terminal-input">
+            <span class="terminal-prompt">></span>
+            <span class="terminal-cursor"></span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>Abdillah.Syh</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Abdillah Syah Al Malik MK</h1>
+                    <h2>Data Analyst | Business MIS | Specialized in SQL, Python & High-Performance Databases | Optimizing Data Pipelines & Business Insights</h2>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/abdillahsyah/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/abdillahsyah3" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="mailto:abdillahsyah@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <div>
+                        <a href="#projects" class="btn">View My Work</a>
+                        <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="img/profile.png" alt="Abdillah Syah Al Malik MK">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h3>Professional Summary</h3>
+                    <p>Highly motivated Data Analyst & Database Management professional passionate about developing strategic solutions to implement and streamline processes, thereby improving operational performance and data integration efficiency. With a strong foundation in SQL, Python, and Data Management, I have expertise in high-performance databases like SQL Server, PostgreSQL, and IBM Netezza. Now, I'm eager to further develop my skills to deliver impactful insights and enhance operational efficiency. With a strong foundation in SQL, Python, and Data Management, I have expertise in high-performance databases like SQL Server, PostgreSQL, and IBM Netezza. Now, I'm eager to further enhance my expertise in data automation and database management to drive impactful insights and efficiency.</p>
+                    <p>My approach combines technical skills with business acumen to deliver solutions that not only solve technical challenges but also drive business value. I thrive in collaborative environments where I can contribute my analytical skills while learning from others.</p>
+                </div>
+                <div class="top-skills fade-in">
+                    <h3>Top Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag"><i class="fab fa-python"></i> Python (Programming Language)</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> SQL Server</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</span>
+                        <span class="skill-tag"><i class="fas fa-database"></i> IBM Netezza</span>
+                        <span class="skill-tag"><i class="fas fa-server"></i> Database Management</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section - Enhanced Timeline Version -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>EXPERIENCE</h2>
+            </div>
+            
+            <div class="timeline">
+                <!-- Timeline Connector with Animation -->
+                <div class="timeline-connector">
+                    <div class="timeline-dots">
+                        <div class="timeline-dot" data-index="0"></div>
+                        <div class="timeline-dot" data-index="1"></div>
+                        <div class="timeline-dot" data-index="2"></div>
+                        <div class="timeline-dot" data-index="3"></div>
+                    </div>
+                </div>
+                
+                <!-- Experience 1 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <img src="img/muamalat.jpeg" alt="Bank Muamalat Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                <div class="logo-ring"></div>
+                                <div class="logo-pulse"></div>
+                            </div>
+                            <div class="experience-title-container">
+                                <h3 class="experience-title">PT. Bank Muamalat Indonesia Tbk.</h3>
+                                <span class="experience-date">Business MIS Intern - Jakarta (Aug 2024 – Feb 2025)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-arrow"></div>
+                </div>
+                
+                <!-- Experience 2 -->
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <img src="img/linknet.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                <div class="logo-ring"></div>
+                                <div class="logo-pulse"></div>
+                            </div>
+                            <div class="experience-title-container">
+                                <h3 class="experience-title">PT. Linknet Tbk.</h3>
+                                <span class="experience-date">Revenue Assurance - Tangerang (Jun – Nov 2023)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-arrow"></div>
+                </div>
+                
+                <!-- Experience 3 -->
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <img src="img/jubelio.jpeg" alt="Jubelio Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                <div class="logo-ring"></div>
+                                <div class="logo-pulse"></div>
+                            </div>
+                            <div class="experience-title-container">
+                                <h3 class="experience-title">Jubelio</h3>
+                                <span class="experience-date">Reporting Engineer Project-Based Intern - Remote (Apr – May 2023)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-arrow"></div>
+                </div>
+                
+                <!-- Experience 4 -->
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <img src="img/fci.jpeg" alt="Faber-Castell Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                <div class="logo-ring"></div>
+                                <div class="logo-pulse"></div>
+                            </div>
+                            <div class="experience-title-container">
+                                <h3 class="experience-title">PT A.W. Faber-Castell Indonesia</h3>
+                                <span class="experience-date">IT Support Intern - Bekasi (Mar – Apr 2020)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-arrow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section education" id="education">
+        <div class="container">
+            <div class="section-title">
+                <h2>Education</h2>
+            </div>
+            <div class="education-item fade-in">
+                <div class="education-header">
+                    <h3 class="education-title">University of Bhayangkara Jakarta Raya</h3>
+                    <span class="education-date">2017 - 2021</span>
+                </div>
+                <p class="education-degree">Bachelor's degree, Computer Science</p>
+                <p class="education-degree">Grade: 3.59</p>
+                <p class="education-description">Thesis: Application of K-Nearest Neighbor Regression in Predicting Product Sales. The objectives of this research are to present predictions of sales data for each product, identify future sales patterns, and evaluate the accuracy of errors in the prediction model using the Python programming language.</p>
+                <div class="education-skills">
+                    <span class="skill-tag">Data Mining</span>
+                    <span class="skill-tag">K-Nearest Neighbor (K-NN)</span>
+                    <span class="skill-tag">Knowledge Discovery in Database (KDD)</span>
+                    <span class="skill-tag">K-Fold Cross Validation</span>
+                    <span class="skill-tag">Root Mean Square Error (RMSE)</span>
+                    <span class="skill-tag">Python</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section - Updated -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projects</h2>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="pro/Dashboard-1.png" alt="Health Facilities Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Evaluation of Health Facilities and Services Conditions in West Java</h3>
+                        <a href="#" class="project-view-btn" data-project="1">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="pro/Dashboard-2.png" alt="Sales Performance Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Sales Performance Analysis</h3>
+                        <a href="#" class="project-view-btn" data-project="2">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="pro/Dashboard-3.png" alt="Promo Effectiveness Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Promo Effectiveness Review for Omnichannel Jubelio</h3>
+                        <a href="#" class="project-view-btn" data-project="3">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="pro/Python-1.png" alt="CNN Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Implementation of CNN for Cat and Dog Image Classification</h3>
+                        <a href="#" class="project-view-btn" data-project="4">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="pro/Project-2.png" alt="KNN Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Implementation of K-Nearest Neighbor (KNN) for Computer Auction Data Classification</h3>
+                        <a href="#" class="project-view-btn" data-project="5">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modals -->
+    <!-- Modal 1 -->
+    <div class="modal" id="project-modal-1">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Healthcare Facilities & Insurance Coverage Dashboard – West Java Province</h2>
+            </div>
+            <div class="modal-section">
+                <div class="pdf-viewer-container">
+                    <iframe class="pdf-viewer" src="pro/Dashboard-1.pdf" allow="autoplay"></iframe>
+                </div>
+                <h3>Project Overview</h3>
+                <p>This dashboard visualizes data on healthcare facility distribution and health insurance coverage across West Java Province. The aim is to identify gaps in healthcare access and assess the equity of public health services across different cities and regencies, providing data-driven insights for policymakers and stakeholders.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Raw Dataset Link</h3>
+                <p>Google Sheets – <a href="https://docs.google.com/spreadsheets/d/1r4640nIpRZO7r6Sn44SZZV1aXFe6etTT/edit?usp=sharing&ouid=112609120280034535850&rtpof=true&sd=true" target="_blank">Dataset</a></p>
+                <p>Tableau – <a href="https://public.tableau.com/views/DashboardJaminanFasilitasKesehatanProv_Jabar/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank">Dashboard</a></p>
+            </div>
+            <div class="modal-section">
+                <h3>Insights & Findings</h3>
+                <ul>
+                    <li>Total healthcare facilities: 55,670 units across 27 cities/regencies</li>
+                    <li>A striking 94.74% of these are Posyandu (community-based health posts), highlighting strong grassroots health efforts</li>
+                    <li>Bogor Regency and Bandung Regency have the highest number of facilities</li>
+                    <li>Bogor Regency also has the largest insured population (3.5 million people)</li>
+                    <li>In terms of insurance type:
+                        <ul>
+                            <li>Government-subsidized insurance (PBI-APBN) dominates at 43.37%</li>
+                            <li>Employees under wage scheme (PPU): 23.08%</li>
+                            <li>Self-employed/non-wage workers (PBPU): 18.13%</li>
+                            <li>Remaining population is covered by local schemes (Jamkesda), private insurance, or employer-based plans</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Tools Used</h3>
+                <div class="modal-tools">
+                    <span class="modal-tool">Tableau Public</span>
+                    <span class="modal-tool">Excel/Google Sheets</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal" id="project-modal-2">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Sales Performance Analysis</h2>
+            </div>
+            <div class="modal-section">
+                <div class="pdf-viewer-container">
+                    <iframe class="pdf-viewer" src="pro/Dashboard-2.pdf" allow="autoplay"></iframe>
+                </div>
+                <h3>Project Overview</h3>
+                <p>This sales performance analysis project examines product trends and transaction sizes to support data-driven business decisions. The analysis helps optimize inventory, marketing strategies, and revenue growth by identifying top-performing products and sales patterns.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Raw Dataset Link</h3>
+                <p>Google Sheets – <a href="https://docs.google.com/spreadsheets/d/1Cj_794R_koCAr2q3uKrZWtlPgms7ICNu/edit?usp=sharing&ouid=112609120280034535850&rtpof=true&sd=true" target="_blank">Dataset</a></p>
+                <p>Google Colab – <a href="https://drive.google.com/file/d/1YyIVJXpSBLI6EKWhY2UPNhkOH7lWgez0/view?usp=sharing" target="_blank">Source Code</a></p>
+            </div>
+            <div class="modal-section">
+                <h3>Insights & Findings</h3>
+                <ul>
+                    <li>Classic Cars was the top-selling product with the highest demand</li>
+                    <li>Trains had the lowest sales, indicating minimal market interest</li>
+                    <li>Sales peaked in September 2003 and November 2004</li>
+                    <li>Large transactions accounted for 59.8% of total sales</li>
+                    <li>Clear seasonal patterns in sales performance</li>
+                    <li>Significant variation in sales performance across product categories</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Tools Used</h3>
+                <div class="modal-tools">
+                    <span class="modal-tool">Excel</span>
+                    <span class="modal-tool">Python</span>
+                    <span class="modal-tool">Looker Studio</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="modal" id="project-modal-3">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Promo Effectiveness Review for Omnichannel Jubelio</h2>
+            </div>
+            <div class="modal-section">
+                <div class="pdf-viewer-container">
+                    <iframe class="pdf-viewer" src="pro/Dashboard-3.pdf" allow="autoplay"></iframe>
+                </div>
+                <h3>Project Overview</h3>
+                <p>This project provided actionable insights into the effectiveness of promo codes in Jubelio's multi-channel sales ecosystem. The findings helped marketing teams optimize promotional strategies, improve customer targeting, and maximize revenue during high-impact periods.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Raw Dataset Link</h3>
+                <p>Google Sheets – <a href="https://drive.google.com/file/d/1AXE3PybOku369HbFjaxFOP8oeQ-PdocC/view?usp=sharing" target="_blank">Dataset</a></p>
+                <p>SQL – <a href="https://drive.google.com/file/d/1TRwKkK4d6Pr7M3I0wHl8LmbqF0SOPlGf/view?usp=sharing" target="_blank">Query</a></p>
+            </div>
+            <div class="modal-section">
+                <h3>Insights & Findings</h3>
+                <ul>
+                    <li>Sales spikes were observed in specific periods (March, May, December)</li>
+                    <li>Promotions were used consistently, but their impact varied</li>
+                    <li>Some promotions were effective, but not all led to significant increases</li>
+                    <li>Clear correlation between promotion types and customer segments</li>
+                    <li>Omnichannel promotions showed better results than single-channel promotions</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Tools Used</h3>
+                <div class="modal-tools">
+                    <span class="modal-tool">Excel</span>
+                    <span class="modal-tool">PostgreSQL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4 -->
+    <div class="modal" id="project-modal-4">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Implementation of CNN for Cat and Dog Image Classification</h2>
+            </div>
+            <div class="modal-section">
+                <div class="pdf-viewer-container">
+                    <iframe class="pdf-viewer" src="pro/P-1.pdf" allow="autoplay"></iframe>
+                </div>
+                <h3>Project Overview</h3>
+                <p>This deep learning project demonstrates the use of CNN for automated image classification (cats vs. dogs). By leveraging Python libraries such as Keras and NumPy, the project contributes to the development of intelligent systems capable of recognizing visual objects accurately and efficiently.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Raw Dataset Link</h3>
+                <p>Google Colab – <a href="https://drive.google.com/file/d/1KPrbP3OUzGzm_QyUtMhsLyIUCZ7IPFRf/view?usp=sharing" target="_blank">Source Code</a></p>
+            </div>
+            <div class="modal-section">
+                <h3>Insights & Findings</h3>
+                <ul>
+                    <li>Image dataset resized to 64×64 pixels for model training</li>
+                    <li>CNN model successfully predicted new images (output: 0 = cat, 1 = dog)</li>
+                    <li>Data augmentation improved model generalization and performance</li>
+                    <li>Achieved 85% accuracy on validation set</li>
+                    <li>Model showed good performance even with limited training data</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Tools Used</h3>
+                <div class="modal-tools">
+                    <span class="modal-tool">Python</span>
+                    <span class="modal-tool">Keras</span>
+                    <span class="modal-tool">NumPy</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5 -->
+    <div class="modal" id="project-modal-5">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Implementation of K-Nearest Neighbor (KNN) for Computer Auction Data Classification</h2>
+            </div>
+            <div class="modal-section">
+                <div class="pdf-viewer-container">
+                    <iframe class="pdf-viewer" src="pro/P-2.pdf" allow="autoplay"></iframe>
+                </div>
+                <h3>Project Overview</h3>
+                <p>This data analysis project supported better decision-making in computer auctions by classifying computer specifications and pricing data. The use of the KNN classification model aimed to enhance prediction accuracy and provide data-driven recommendations for pricing evaluation.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Raw Dataset Link</h3>
+                <p>Google Sheets – <a href="https://docs.google.com/spreadsheets/d/1Hh7El06ME_qBOzisN0mU7LTqNN4-GBks/edit?usp=sharing&ouid=112609120280034535850&rtpof=true&sd=true" target="_blank">Dataset</a></p>
+            </div>
+            <div class="modal-section">
+                <h3>Insights & Findings</h3>
+                <ul>
+                    <li>Analyzed computer auction dataset from PT. A.W. Faber-Castell Indonesia containing 30 records and 8 attributes</li>
+                    <li>Successfully handled missing value using RapidMiner's data cleaning operators</li>
+                    <li>Achieved 60% classification accuracy using KNN with various K-values (K=5, 15, 25, 30)</li>
+                    <li>Identified key features impacting computer pricing</li>
+                    <li>Established baseline performance metrics for future model comparisons</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Tools Used</h3>
+                <div class="modal-tools">
+                    <span class="modal-tool">Excel</span>
+                    <span class="modal-tool">RapidMiner</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificates Section -->
+    <section class="section certificates" id="certificates">
+        <div class="container">
+            <div class="section-title">
+                <h2>Certificates</h2>
+            </div>
+            <div class="certificates-grid">
+                <!-- Certificate 1 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Get started with natural language processing in Azure.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Get started with natural language processing in Azure</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Jul 2025</p>
+                        <a href="https://drive.google.com/file/d/1pBrUV2QJnGje-bagptigI1VHN1tzzYvz/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div> 
+                
+                <!-- Certificate 2 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Data Classification and Summarization Using IBM Granite.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Data Classification and Summarization Using IBM Granite</h3>
+                        <p class="certificate-issuer">IBM</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/146npOdox582vWgQXEeTAqLSZa6bK6Bqd/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Certificate 3 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Summarizing Data Using IBM Granite.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Summarizing Data Using IBM Granite</h3>
+                        <p class="certificate-issuer">IBM</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1tfVkXX_WA2FZe-WuJ-r_eGTO-7WLvkyw/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 4 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Classifying Data Using IBM Granite.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Classifying Data Using IBM Granite</h3>
+                        <p class="certificate-issuer">IBM</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1w2wNNaJoRng4VXBxyqfGMTS1XbOVoNjX/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                   <!-- Certificate 5 -->
+                   <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Data Science in Telco Data Cleansing.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Data Science in Telco Data Cleansing</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1HP92HBhS1xkxUHVJrp2f8KvJ25e8oqv2/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 6 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Basic Feature Discovering for Machine Learning.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Basic Feature Discovering for Machine Learning</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1rBJmu2KLiwl9Je3ovI29kOE5P4jgPzMx/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                 <!-- Certificate 7 -->
+                 <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Multiclass Classification dengan Algoritma Multinomial Naive Bayes dan kNearest Neighbors.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Multiclass Classification dengan Algoritma Multinomial Naive Bayes dan kNearest Neighbors</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1cWDu4EZzP-t-FpKIf-ze9HXlxwve_0WU/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 8 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Menggunakan ORDER BY untuk Mengurutkan Data.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Menggunakan ORDER BY untuk Mengurutkan Data</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1NPW0rcuUR-vkUSNhgGEOi7AvX0ndhbrH/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Certificate 9 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Mengolah Data Tanggal dan Jam Dasar dengan MySQL.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Mengolah Data Tanggal dan Jam Dasar dengan MySQL</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1_LeLuJi4xw2YvnTnyPCOQPS8HBA-dGO5/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 10 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Menggunakan Subquery pada SQL.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Menggunakan Subquery pada SQL</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/122O7jiAX6JpkWQHCfGlWKVf8cyTBC6yP/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 11 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Memanfaatkan Operator Logika di SQL.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Memanfaatkan Operator Logika di SQL</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1Fl0UWo_p3AiqCCMd5Y45LDSPbgT1o7SX/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 12 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Mengolah Data Teks Dasar pada MySQL.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Mengolah Data Teks Dasar pada MySQL</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1UNhYrh3-8OpxP8PVgLCVrAZNbzJNAC5O/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 13 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Fundamental SQL Group By and Having.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Fundamental SQL Group By and Having</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1Ml2VpYhkE-cw1LT1PMKNIJoAm0ckOTuv/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 14 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Fundamental SQL Using INNER JOIN and UNION.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Fundamental SQL Using INNER JOIN and UNION</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/13Pd-G8GQRzp3MnFfDXccYkkb_K42qzbx/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 15 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Mengolah Data Teks Unstructured dengan REGEX pada SQL.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Mengolah Data Teks Unstructured dengan REGEX pada SQL</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1l4AmipXeYxm537uRUIhIotgT_S4Epax0/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                 <!-- Certificate 16 -->
+                 <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Fundamental SQL Using FUNCTION and GROUP BY.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Fundamental SQL Using FUNCTION and GROUP BY</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/12Dnc9SYK5DtwnZGQTq1SIf0Ol7FtZ7dx/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 17 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Fundamental SQL Using SELECT Statement.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Fundamental SQL Using SELECT Statement</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1C3AJlGf_mU4spBKYjpKu0NXRbgJ5JLOt/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 18 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Binary Classification.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Binary Classification</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1730FMC3iAFzCeRw32x6D34caGMlH0Xmw/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 19 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Machine Learning With Python for Beginner.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Machine Learning With Python for Beginner</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1c7VGhLuLQbGjb1ysZF2zEq_l5iU_weUc/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                 <!-- Certificate 20 -->
+                 <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Data Wrangling Python.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Data Wrangling Python</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1Fzmlu6LcQYl8Nj7cg-IbYSsfHlhPFSxz/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 21 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Data Visualization using Plotnine.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Data Visualization using Plotnine</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1jGyoAy-e0G8e3O1QfLaBShWZGJvj5PHN/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                   <!-- Certificate 22 -->
+                   <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Fundamental Data Visualization with Python.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Fundamental Data Visualization with Python</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1KZHjDaV9CCbNm4GcoTMxF3zqef-FrGhV/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                 <!-- Certificate 23 -->
+                 <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Statistic using Python for Data Science - Part 2.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Statistic using Python for Data Science - Part 2</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1QcWXFJ8voz2F6T8qYRwX8RASEQYB6FaI/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 24 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Statistic using Python for Data Science - Part 1.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Statistic using Python for Data Science - Part 1</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1sxk2FnHwPz9mPDHlLPyJ2q4i9i39ZPSI/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 25 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Python for Data Professional Beginner - Part 3.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Python for Data Professional Beginner - Part 3</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1pBCeWZEhKIz5AfiGJoIyzQoFeJudgYNu/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                  <!-- Certificate 26 -->
+                  <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Python for Data Professional Beginner - Part 2.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Python for Data Professional Beginner - Part 2</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1aNfMmNicpJ1irH955hmX1DWu0Ntg_sIh/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 27 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Python for Data Professional Beginner - Part 1.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Python for Data Professional Beginner - Part 1</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1hBx8f_PxmYdbjz7By4EYF-P_6yjjNOWL/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                 <!-- Certificate 28 -->
+                 <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Python Fundamental for Data Science.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Python Fundamental for Data Science</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Jun 2025</p>
+                        <a href="https://drive.google.com/file/d/1yVIL-lvdfPmGE0KDXCOSDdEPp5n4n3-M/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 29 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Analisis Data Excel.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Analisis Data Excel</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Apr 2025</p>
+                        <a href="https://drive.google.com/file/d/1xo07ZljQ19X1YgpRO0gHUBtovkzGEcnq/view?usp=sharing">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 30 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/Python (Basic).jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Python (Basic)</h3>
+                        <p class="certificate-issuer">HackerRank</p>
+                        <p class="certificate-date">Issued Apr 2025</p>
+                        <a href="https://drive.google.com/file/d/1YmdDV6hQqj0x54PvT3B8g8zRCUJmme4H/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 31 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/SQL (Advanced).jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">SQL (Advanced)</h3>
+                        <p class="certificate-issuer">HackerRank</p>
+                        <p class="certificate-date">Issued Apr 2025</p>
+                        <a href="https://drive.google.com/file/d/1CNPuFa4iUcJcPjl31txFxCBUMe3FhIa8/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 32 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/SQL (Basic).jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">SQL (Basic)</h3>
+                        <p class="certificate-issuer">HackerRank</p>
+                        <p class="certificate-date">Issued Apr 2025</p>
+                        <a href="https://drive.google.com/file/d/1yvDh23dHaf-fGP0wfqevOgAz_cnVF2jD/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 33 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/GL-Python.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Guide to Learn Python with AI at DQLab</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Apr 2025</p>
+                        <a href="https://drive.google.com/file/d/1eDTpD2D2HBnwNTSMeZpaUSdTwZBZyCe4/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 34 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/GL-SQL.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Guide to Learn SQL with AI at DQLab</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Apr 2025</p>
+                        <a href="https://drive.google.com/file/d/1F_ybThAvHFDzqNU0DcrAv99YgArd61UD/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 35 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/I- Python.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Introduction to Data Science with Python</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Apr 2025</p>
+                        <a href="https://drive.google.com/file/d/1Wj-FH0xnehxEMU2WAyiinQ5f0epMFYTZ/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 36 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/M-Azure.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Analyze text with Azure AI Language</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/17-ztL24UXlRcxRzSXZcuy7RTj1K4jQJ0/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 37 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/M-Create.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Create dashboards in Power BI</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/1nw9XqXr2IBWpAaTAlG-yOjdm2XdAzEJ4/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 38 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/M-Design.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Design Power BI reports</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/1agPaFf1bTHeKx0ay172A-7RQrslZD8RL/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 39 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/M-Speech.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Fundamentals of Azure AI Speech</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/1YD8IEwZQyfpmgPy-wAPp-yYYAXFPhy8B/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 40 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/M-ML.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Fundamentals of Machine Learning</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/1gD2rgP6UVr-32gGvLtjYZKC8-4Pffw2o/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 41 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/M-P.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Plan and prepare to develop AI solutions on Azure</h3>
+                        <p class="certificate-issuer">Microsoft</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/1UEVqI_5DUEO4D_imHv-aFMH8tFjCjHLH/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 42 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/G-R.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Guide to Learn R with AI at DQLab</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/16riYxAyz4B7bcQ788dOr8z2GjCFBVvg-/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 43 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/I-R.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Introduction to Data Science with R</h3>
+                        <p class="certificate-issuer">DQLab</p>
+                        <p class="certificate-date">Issued Mar 2025</p>
+                        <a href="https://drive.google.com/file/d/1X7jWtITsG_wg0NtN0miCRMaS69iECr-A/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 44 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/R-KD.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Kickstart Data Science Journey</h3>
+                        <p class="certificate-issuer">Rakamin Academy</p>
+                        <p class="certificate-date">Issued Aug 2024</p>
+                        <a href="https://drive.google.com/file/d/1lVPF-zXOBqYFGOu4Z4AicodNrzf3hO--/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 45 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/R-ID.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Intro to Data Analytics</h3>
+                        <p class="certificate-issuer">RevoU</p>
+                        <p class="certificate-date">Issued Aug 2024</p>
+                        <a href="https://drive.google.com/file/d/1SApz0r8Ooc0Z2LNaaIpN5vxSwVHaNELp/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Certificate 46 -->
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="cer/R-J.jpg" alt="Certificate">
+                    </div>
+                    <div class="certificate-content">
+                        <h3 class="certificate-title">Jubelio Reporting Engineer Virtual Internship</h3>
+                        <p class="certificate-issuer">Jubelio</p>
+                        <p class="certificate-date">Issued May 2023</p>
+                        <a href="https://drive.google.com/file/d/1UG6b8rAbgRDXorDF3ogyf1vVSVl5-rx-/view?usp=sharing" target="_blank" class="certificate-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+            </div>
+            <div class="contact-info fade-in">
+                <p>I'm currently looking for new opportunities in data analysis and database management. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+                <a href="mailto:abdillahsyah3@gmail.com" class="contact-email">abdillahsyah3@gmail.com</a>
+                <div class="social-links-footer">
+                    <a href="https://www.linkedin.com/in/abdillahsyah/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/abdillahsyah3" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="mailto:abdillahsyah@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content" style="text-align: center; padding: 20px 0;">
+                <div class="logo" style="display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 1.2rem; font-weight: bold; color: #f1f1f1;">
+                    <i class="fas fa-code"></i>
+                    <span style="font-family: 'Orbitron', sans-serif;">Abdillah.Syh</span>
+                </div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #ccc;">
+                    Data Analyst | Business MIS | Specialized in SQL, Python & High-Performance Databases | Optimizing Data Pipelines & Business Insights
+                </p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certificates">Certificates</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="copyright">
+                <p>&copy; 2025 Abdillah Syah Al Malik MK. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Enhanced Time-based greeting
+        function updateGreeting() {
+            const timeGreeting = document.getElementById('time-greeting');
+            const hour = new Date().getHours();
+            let greeting;
+            
+            if (hour < 12) {
+                greeting = "Good Morning";
+            } else if (hour < 18) {
+                greeting = "Good Afternoon";
+            } else if (hour < 22) {
+                greeting = "Good Evening";
+            } else {
+                greeting = "Good Night";
+            }
+            
+            timeGreeting.textContent = greeting;
+        }
+        
+        // Modern Splash Screen Animation with particles
+        const splashScreen = document.getElementById('splash-screen');
+        const splashParticles = document.getElementById('splash-particles');
+        
+        // Create particles for splash screen
+        function createSplashParticles() {
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('splash-particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 4 + 2;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                
+                // Random animation duration
+                const duration = Math.random() * 3 + 2;
+                
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                splashParticles.appendChild(particle);
+            }
+        }
+        
+        // Hide splash screen after animation completes
+        setTimeout(() => {
+            splashScreen.style.opacity = '0';
+            splashScreen.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Enable scrolling after splash screen
+            }, 800);
+        }, 3000);
+        
+        // Initialize splash screen particles
+        createSplashParticles();
+        
+        // Initialize particles.js for main background
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#00f0ff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00f0ff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        const headerHeight = header.offsetHeight;
+        
+        function updateHeader() {
+            if (window.scrollY > headerHeight) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        
+        window.addEventListener('scroll', updateHeader);
+        updateHeader(); // Run once on load
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const offset = header.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL without jumping
+                    if (history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        window.location.hash = targetId;
+                    }
+                }
+            });
+        });
+
+        // Terminal Effect
+        const terminalContent = document.getElementById('terminal-content');
+        const terminalMessages = [
+            "> Loading data modules...",
+            "> Establishing secure connection...",
+            "> Welcome to Abdillah's Portfolio",
+            "> System ready for interaction",
+            "> Type 'help' for available commands"
+        ];
+
+        let currentMessage = 0;
+        
+        function typeTerminalMessage() {
+            if (currentMessage < terminalMessages.length) {
+                const messageDiv = document.createElement('div');
+                terminalContent.appendChild(messageDiv);
+                
+                let i = 0;
+                const message = terminalMessages[currentMessage];
+                const typing = setInterval(() => {
+                    if (i < message.length) {
+                        messageDiv.textContent += message.charAt(i);
+                        i++;
+                        terminalContent.scrollTop = terminalContent.scrollHeight;
+                    } else {
+                        clearInterval(typing);
+                        currentMessage++;
+                        setTimeout(typeTerminalMessage, 1000);
+                    }
+                }, 50);
+            } else {
+                // Loop messages
+                currentMessage = 0;
+                terminalContent.innerHTML = '';
+                setTimeout(typeTerminalMessage, 1000);
+            }
+        }
+
+        // Start terminal animation
+        setTimeout(typeTerminalMessage, 1000);
+
+        // Timeline Dot Interaction
+        document.querySelectorAll('.timeline-dot').forEach(dot => {
+            dot.addEventListener('click', function() {
+                const index = this.getAttribute('data-index');
+                const items = document.querySelectorAll('.timeline-item');
+                
+                if (items[index]) {
+                    items[index].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                    
+                    // Add pulse effect
+                    this.style.transform = 'scale(1.5)';
+                    this.style.boxShadow = '0 0 20px var(--primary)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.2)';
+                        this.style.boxShadow = '0 0 15px var(--primary)';
+                    }, 500);
+                }
+            });
+        });
+
+        // Animate timeline items on scroll
+        function animateTimelineItems() {
+            const items = document.querySelectorAll('.timeline-item');
+            
+            items.forEach((item, index) => {
+                const rect = item.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8);
+                
+                if (isVisible) {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                    
+                    // Animate corresponding dot
+                    const dot = document.querySelector(`.timeline-dot[data-index="${index}"]`);
+                    if (dot) {
+                        dot.style.background = 'var(--primary)';
+                        dot.style.borderColor = 'var(--secondary)';
+                    }
+                }
+            });
+        }
+
+        // Initialize timeline items as invisible
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transition = 'all 0.6s ease';
+            item.style.transform = 'translateY(20px)';
+        });
+
+        // Check on scroll
+        window.addEventListener('scroll', animateTimelineItems);
+        animateTimelineItems(); // Run once on load
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in:not(.visible)');
+        
+        function checkFade() {
+            const windowHeight = window.innerHeight;
+            const triggerPoint = windowHeight * 0.8;
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < triggerPoint) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            updateGreeting();
+            checkFade();
+            document.body.style.overflow = 'hidden'; // Prevent scrolling during splash screen
+        });
+
+        // Handle scroll events with debounce
+        let scrollTimeout;
+        function handleScroll() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                checkFade();
+            }, 100);
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Project Modal Functionality
+        const modalBtns = document.querySelectorAll('.project-view-btn');
+        const modals = document.querySelectorAll('.modal');
+        const closeBtns = document.querySelectorAll('.close-modal');
+        
+        // Open modal when button is clicked
+        modalBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const projectId = btn.getAttribute('data-project');
+                const modal = document.getElementById(`project-modal-${projectId}`);
+                modal.style.display = 'block';
+                setTimeout(() => {
+                    modal.classList.add('show');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal when X is clicked
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = btn.closest('.modal');
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            });
+        });
+        
+        // Close modal when clicking outside content
+        window.addEventListener('click', (e) => {
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
